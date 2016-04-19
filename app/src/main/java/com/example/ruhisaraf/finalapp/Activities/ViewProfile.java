@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.ruhisaraf.finalapp.Models.User;
+import com.example.ruhisaraf.finalapp.Models.UserLocalStore;
 import com.example.ruhisaraf.finalapp.R;
 
 import butterknife.ButterKnife;
@@ -26,7 +27,9 @@ public class ViewProfile extends AppCompatActivity {
     @InjectView(R.id.btn_editProfile) Button _editButton;
     @InjectView(R.id.btn_updateProfile) Button _updateButton;
     @InjectView(R.id.btn_delProfile) Button _deleteButton;
+    @InjectView(R.id.btn_logout) Button _logoutButton;
 
+    UserLocalStore userLocalStore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class ViewProfile extends AppCompatActivity {
         User user = null;
         final User passableuser;
         final Context mContext = this.getApplicationContext();
+        userLocalStore = new UserLocalStore(this);
 
         ButterKnife.inject(this);
         Bundle extras = getIntent().getExtras();
@@ -79,6 +83,18 @@ public class ViewProfile extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        _logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLocalStore.setUserLoggedIn(false);
+                userLocalStore.clearUserData();
+                Intent i = new Intent(mContext, Login.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(i);
+
             }
         });
     }

@@ -35,7 +35,9 @@
         <activity
             android:name=".Activities.ViewProfile"
             android:label="@string/title_activity_view_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.Search" />
+        <activity android:name=".Activities.SearchResult"></activity>
     </application>
 
 </manifest>

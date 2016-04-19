@@ -28,8 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:hint="Name"
-                android:enabled="false"/>
+                android:hint="Name" />
         </LinearLayout>
 
         <LinearLayout
@@ -49,8 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:hint="EmailId"
-                android:enabled="false"/>
+                android:hint="EmailId" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,42 +68,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:hint="Role"
-                android:enabled="false"/>
+                android:hint="Role" />
         </LinearLayout>
 
 
 
-        <Button android:id="@+id/btn_editProfile"
+        <Button android:id="@+id/btn_search"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:padding="12dp"
-            android:text="Edit Profile"/>
+            android:text="Search"/>
 
-        <Button android:id="@+id/btn_updateProfile"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:padding="12dp"
-            android:text="Update Profile"/>
-
-        <Button android:id="@+id/btn_delProfile"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:padding="12dp"
-            android:text="Delete Profile"/>
-
-        <Button android:id="@+id/btn_logout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="Logout"/>
 
 
     </LinearLayout>

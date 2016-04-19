@@ -107,6 +107,7 @@ class ServerRequests {
     public void getMultipleUsers(final User user, final ServerResponseCallback callback) {
         Gson gson = new Gson();
         String userDetails = gson.toJson(user);
+        System.out.println("empty field "+ userDetails);
         query = new HashMap<>();
         query.put("q", userDetails);
         query.put("f", "{\"_id\": 1, \"name\" : 1}");

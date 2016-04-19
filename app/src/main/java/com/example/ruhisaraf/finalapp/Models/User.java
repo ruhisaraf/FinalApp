@@ -4,9 +4,14 @@ import android.content.Intent;
 import android.text.BoringLayout;
 
 import com.example.ruhisaraf.finalapp.Activities.Login;
+import com.example.ruhisaraf.finalapp.Activities.SearchResult;
 import com.example.ruhisaraf.finalapp.Activities.SignUp;
 import com.example.ruhisaraf.finalapp.Activities.ViewProfile;
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by ruhisaraf on 4/2/2016.
@@ -39,18 +44,20 @@ public class User {
     public User() {
 
     }
-    public void registerUser(Context mContext) throws InterruptedException {
+    public void registerUser(Context mContext, final UserCallback userCallback) throws InterruptedException {
         ServerRequests serverRequests = new ServerRequests();
         serverRequests.createUser(this, new ServerResponseCallback(mContext) {
             @Override
             void onResponse(Boolean result) {
-                if(result) {
+                userCallback.setmContext(mContext);
+                userCallback.onResponse(result);
+                /*if(result) {
                     Intent i = new Intent(mContext, Login.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(i);
                 }
                 else {
-                }
+                }*/
             }
         });
     }
@@ -128,7 +135,23 @@ public class User {
         });
     }
 
-    void searchOtherUsers() {}
+    public void searchOtherUsers(Context mContext) {
+        ServerRequests serverRequests = new ServerRequests();
+        serverRequests.getMultipleUsers(this, new ServerResponseCallback(mContext) {
+            @Override
+            void onResponse(List<User> userList) {
+                if(userList != null) {
+                    System.out.println(userList.size());
+                    String json = new Gson().toJson(userList);
+                    System.out.println("ruhi is printing" + json);
+                    Intent i = new Intent(mContext, SearchResult.class);
+                    i.putExtra("NumberOfUsers", json);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(i);
+                }
+            }
+        });
+    }
 
    /*Getters & Setters*/
    public Id getId() {
@@ -150,7 +173,6 @@ public class User {
        this.name = name;
        System.out.println("In set name" + this.hashCode() + this.getName());
    }
-
    public String getEmailID() {
        return emailID;
    }

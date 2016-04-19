@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 _loginButton.setEnabled(false);
 
-                if (validate() || !login()) {
+                if (!validate() || !login()) {
                     Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
                     _loginButton.setEnabled(true);
                     return;
@@ -124,6 +124,8 @@ public class Login extends AppCompatActivity {
         User newUser = new User();
         newUser.setEmailID(_emailText.getText().toString());
         newUser.setPassword(hashUserPassword(_passwordText.getText().toString()));
+        userLocalStore.storeUserData(newUser);
+        userLocalStore.setUserLoggedIn(true);
         try {
             newUser.loginUser(loginContext);
             return true;

@@ -16,6 +16,7 @@ import com.example.ruhisaraf.finalapp.R;
 import com.example.ruhisaraf.finalapp.Models.*;
 
 import java.security.MessageDigest;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,7 +45,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
                 _signupButton.setEnabled(false);
 
-                if (validate() || !signUp()) {
+                if (!validate() || !signUp()) {
                     Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
                     _signupButton.setEnabled(true);
                     return;
@@ -105,7 +106,16 @@ public class SignUp extends AppCompatActivity {
         userLocalStore.setUserLoggedIn(true);
 
         try {
-            newUser.registerUser(signUpContext);
+            newUser.registerUser(signUpContext, new UserCallback() {
+                public void onResponse(Boolean result) {
+                    if(result) {
+                        Intent i = new Intent(getmContext(), Login.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getmContext().startActivity(i);
+                    }
+                }
+
+            });
 
             return true;
         } catch (InterruptedException e) {

@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent i = new Intent(this, Login.class);
+        Intent i = new Intent(this, Search.class);
         startActivity(i);
     }
 
