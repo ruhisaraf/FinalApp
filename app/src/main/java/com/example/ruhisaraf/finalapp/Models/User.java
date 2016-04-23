@@ -242,3 +242,18 @@ public class User {
         }
     }
 }
+
+class UserFactory {
+    public User createUser(String role) {
+        if(role == "Student"){
+            return new StudentUser();
+        }
+        else if(role == "Admin"){
+            return new AdminUser();
+        }
+        else if(role == "Tutor") {
+            return new TutorUser();
+        }
+        else return null;
+    }
+}
