@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.example.ruhisaraf.finalapp.Models.SearchViewAdapter;
+import com.example.ruhisaraf.finalapp.Controller.Search.SearchViewAdapter;
 import com.example.ruhisaraf.finalapp.Models.User;
 import com.example.ruhisaraf.finalapp.R;
 import com.google.gson.Gson;

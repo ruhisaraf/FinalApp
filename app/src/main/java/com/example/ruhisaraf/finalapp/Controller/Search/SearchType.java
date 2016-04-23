@@ -1,8 +1,5 @@
-package com.example.ruhisaraf.finalapp.Models;
+package com.example.ruhisaraf.finalapp.Controller.Search;
 
-/**
- * Created by ruhisaraf on 4/11/2016.
- */
 public interface SearchType {
     public static final String NAME = "Name";
     public static final String EMAIL = "Email";

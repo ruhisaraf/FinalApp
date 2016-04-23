@@ -1,23 +1,17 @@
-package com.example.ruhisaraf.finalapp.Models;
+package com.example.ruhisaraf.finalapp.Controller.Search;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.ruhisaraf.finalapp.Models.User;
 import com.example.ruhisaraf.finalapp.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-/**
- * Created by ruhisaraf on 4/9/2016.
- */
 public class SearchViewAdapter extends BaseAdapter {
     public ArrayList<User> users;
     Activity activity;

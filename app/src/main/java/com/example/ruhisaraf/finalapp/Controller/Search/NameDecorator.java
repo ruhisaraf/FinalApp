@@ -1,8 +1,7 @@
-package com.example.ruhisaraf.finalapp.Models;
+package com.example.ruhisaraf.finalapp.Controller.Search;
 
-/**
- * Created by ruhisaraf on 4/12/2016.
- */
+import com.example.ruhisaraf.finalapp.Models.User;
+
 public class NameDecorator extends SearchDecorator {
     Searchable search;
     String name;

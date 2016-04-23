@@ -3,14 +3,10 @@ package com.example.ruhisaraf.finalapp.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.ruhisaraf.finalapp.Models.User;
 import com.example.ruhisaraf.finalapp.Models.UserLocalStore;
@@ -27,6 +23,7 @@ public class ViewProfile extends AppCompatActivity {
     @InjectView(R.id.btn_editProfile) Button _editButton;
     @InjectView(R.id.btn_updateProfile) Button _updateButton;
     @InjectView(R.id.btn_delProfile) Button _deleteButton;
+    @InjectView(R.id.btn_search) Button _searchButton;
     @InjectView(R.id.btn_logout) Button _logoutButton;
 
     UserLocalStore userLocalStore;
@@ -83,6 +80,14 @@ public class ViewProfile extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        _searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent searchIntent = new Intent(ViewProfile.this, Search.class);
+                startActivity(searchIntent);
             }
         });
 

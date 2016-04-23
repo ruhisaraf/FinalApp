@@ -3,9 +3,6 @@ package com.example.ruhisaraf.finalapp.Models;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by ruhisaraf on 3/27/2016.
- */
 public class UserLocalStore {
     public static final String SP_NAME = "userDetails";
 

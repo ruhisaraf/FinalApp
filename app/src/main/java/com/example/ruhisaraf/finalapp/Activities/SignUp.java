@@ -12,11 +12,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ruhisaraf.finalapp.Models.User;
+import com.example.ruhisaraf.finalapp.Models.UserCallback;
+import com.example.ruhisaraf.finalapp.Models.UserLocalStore;
 import com.example.ruhisaraf.finalapp.R;
-import com.example.ruhisaraf.finalapp.Models.*;
 
 import java.security.MessageDigest;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

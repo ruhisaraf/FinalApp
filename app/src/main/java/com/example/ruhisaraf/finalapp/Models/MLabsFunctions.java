@@ -18,9 +18,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
-/**
- * Created by ruhisaraf on 4/2/2016.
- */
 interface MLabsDriver {
     @GET("databases/")
     Call<List<String>> getDatabases(
@@ -72,7 +69,7 @@ interface MLabsDriver {
             @Body Object document);
 
     @Headers({
-            "asycn: true",
+            "async: true",
             "timeout: 300000"
     })
     @DELETE("databases/{dbName}/collections/{collectionsName}/{id}")

@@ -1,4 +1,6 @@
-package com.example.ruhisaraf.finalapp.Models;
+package com.example.ruhisaraf.finalapp.Controller.Search;
+
+import com.example.ruhisaraf.finalapp.Models.User;
 
 public class EmailDecorator extends SearchDecorator {
     Searchable search;

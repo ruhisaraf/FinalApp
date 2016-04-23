@@ -8,15 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.ruhisaraf.finalapp.Models.NameDecorator;
-import com.example.ruhisaraf.finalapp.Models.RoleDecorator;
-import com.example.ruhisaraf.finalapp.Models.SearchType;
-import com.example.ruhisaraf.finalapp.Models.Searchable;
-import com.example.ruhisaraf.finalapp.Models.SimpleSearch;
-import com.example.ruhisaraf.finalapp.Models.SortUtil;
+import com.example.ruhisaraf.finalapp.Controller.Search.SearchType;
+import com.example.ruhisaraf.finalapp.Controller.Search.Searchable;
+import com.example.ruhisaraf.finalapp.Controller.Search.SimpleSearch;
 import com.example.ruhisaraf.finalapp.Models.User;
 import com.example.ruhisaraf.finalapp.R;
-import com.google.gson.Gson;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -67,9 +63,9 @@ public class Search extends AppCompatActivity {
             if (queryCriteria.get(type) != null && !"".equals(queryCriteria.get(type))) {
                 Class<?> src = null;
                 try {
-                    src = Class.forName("com.example.ruhisaraf.finalapp.Models." + type + "Decorator");
+                    src = Class.forName("com.example.ruhisaraf.finalapp.Controller.Search." + type + "Decorator");
                     Constructor<?> con = src.getDeclaredConstructor(Searchable.class, Object.class);
-                    search = (com.example.ruhisaraf.finalapp.Models.Searchable) con.newInstance(search, queryCriteria.get(type));
+                    search = (Searchable) con.newInstance(search, queryCriteria.get(type));
                     user = search.generateUser();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -77,7 +73,6 @@ public class Search extends AppCompatActivity {
             }
         }
         user.searchOtherUsers(mContext);
-
         return true;
     }
 }

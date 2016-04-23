@@ -13,9 +13,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by ruhisaraf on 4/2/2016.
- */
 class ServerResponseCallback {
     User user;
     Context mContext;
@@ -112,7 +109,7 @@ class ServerRequests {
         System.out.println("empty field "+ userDetails);
         query = new HashMap<>();
         query.put("q", userDetails);
-        query.put("f", "{\"_id\": 1, \"name\" : 1}");
+        //query.put("f", "{\"_id\": 1, \"name\" : 1}");
 
         Call<List<User>> call = mLabsClient.getDocument(databaseName, collectionsName, apiKey, query);
         call.enqueue(new Callback<List<User>>() {

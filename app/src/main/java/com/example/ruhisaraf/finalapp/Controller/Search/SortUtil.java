@@ -1,4 +1,4 @@
-package com.example.ruhisaraf.finalapp.Models;
+package com.example.ruhisaraf.finalapp.Controller.Search;
 
 import java.util.List;
 

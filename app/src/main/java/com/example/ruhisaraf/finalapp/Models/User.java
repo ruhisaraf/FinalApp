@@ -1,23 +1,16 @@
 package com.example.ruhisaraf.finalapp.Models;
 import android.content.Context;
 import android.content.Intent;
-import android.text.BoringLayout;
 import android.util.Base64;
 
-import com.example.ruhisaraf.finalapp.Activities.Login;
 import com.example.ruhisaraf.finalapp.Activities.SearchResult;
 import com.example.ruhisaraf.finalapp.Activities.SignUp;
 import com.example.ruhisaraf.finalapp.Activities.ViewProfile;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.List;
-
-/**
- * Created by ruhisaraf on 4/2/2016.
- */
 
 public class User {
    @SerializedName("_id")

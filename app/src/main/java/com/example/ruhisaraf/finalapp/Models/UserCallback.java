@@ -4,9 +4,6 @@ import android.content.Context;
 
 import java.util.List;
 
-/**
- * Created by ruhisaraf on 4/12/2016.
- */
 public abstract class UserCallback {
     public Context getmContext() {
         return mContext;
