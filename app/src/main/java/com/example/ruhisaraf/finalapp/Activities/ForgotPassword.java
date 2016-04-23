@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class ForgotPassword extends AppCompatActivity {
-
+    UserLocalStore userLocalStore;
     @InjectView(R.id.forgot_email)
     EditText _emailText;
     @InjectView(R.id.btn_forgot_pwd)
@@ -34,15 +34,13 @@ public class ForgotPassword extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
-    UserLocalStore userLocalStore = new UserLocalStore(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
         ButterKnife.inject(this);
 
-
+        userLocalStore = new UserLocalStore(this);
         _forgotPwdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
