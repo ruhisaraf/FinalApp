@@ -2,6 +2,7 @@ package com.example.ruhisaraf.finalapp.Models;
 
 public abstract class Searchable {
     User user = new User();
+
 	public User generateUser(){
         return user;
     };

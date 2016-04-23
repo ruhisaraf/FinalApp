@@ -5,6 +5,6 @@ package com.example.ruhisaraf.finalapp.Models;
  */
 public class SimpleSearch extends Searchable {
     public SimpleSearch() {
-        //super(user);
+        user = new User();
     }
 }

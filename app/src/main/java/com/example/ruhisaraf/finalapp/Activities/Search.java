@@ -54,34 +54,32 @@ public class Search extends AppCompatActivity {
     }
 
     protected Boolean search(Context mContext) {
-        /*HashMap<String, Object> queryCriteria = new HashMap<String, Object>();
+        HashMap<String, Object> queryCriteria = new HashMap<String, Object>();
         queryCriteria.put(SearchType.NAME, _name.getText().toString());
-        //queryCriteria.put(SearchType.EMAIL, _email.getText().toString());
+        queryCriteria.put(SearchType.TYPE, _role.getText().toString());
+        queryCriteria.put(SearchType.EMAIL,_email.getText().toString());
 
         Iterator<String> itr = queryCriteria.keySet().iterator();
         User user = new User();
+        Searchable search = new SimpleSearch();
         while (itr.hasNext()) {
             String type = itr.next();
             if (queryCriteria.get(type) != null && !"".equals(queryCriteria.get(type))) {
                 Class<?> src = null;
                 try {
                     src = Class.forName("com.example.ruhisaraf.finalapp.Models." + type + "Decorator");
-                    Constructor<?> con = src.getDeclaredConstructor(Object.class);
-                    com.example.ruhisaraf.finalapp.Models.Searchable instance = (com.example.ruhisaraf.finalapp.Models.Searchable) con.newInstance(queryCriteria.get(type));
-                    user = instance.generateUser(user);
+                    Constructor<?> con = src.getDeclaredConstructor(Searchable.class, Object.class);
+                    search = (com.example.ruhisaraf.finalapp.Models.Searchable) con.newInstance(search, queryCriteria.get(type));
+                    user = search.generateUser();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-        System.out.println("Output" + json);
+//        Gson gson = new Gson();
+//        String json = gson.toJson(user);
 
-        user.searchOtherUsers(mContext);*/
-
-        Searchable search1 = new NameDecorator(new RoleDecorator(new SimpleSearch(), "Tutor"),"Whatevers");
-        System.out.println(search1.generateUser().getName());
+        user.searchOtherUsers(mContext);
 
         return true;
     }

@@ -7,13 +7,14 @@ public class NameDecorator extends SearchDecorator {
     Searchable search;
     String name;
 
-    public NameDecorator(Searchable search, String name) {
+    public NameDecorator(Searchable search, Object name) {
         this.search = search;
-        search.user.setName(name);
+        this.name = name.toString();
     }
     @Override
     public User generateUser() {
         // TODO Auto-generated method stub
-        return search.user;
+        search.generateUser().setName(name);
+        return search.generateUser();
     }
 }

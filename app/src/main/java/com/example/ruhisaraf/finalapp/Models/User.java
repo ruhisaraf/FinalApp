@@ -165,6 +165,7 @@ public class User {
    }
    public void setRole(String role) {
        this.role = role;
+       System.out.println("Role: " + role );
    }
    public String getName() {
        return name;
@@ -178,6 +179,7 @@ public class User {
    }
    public void setEmailID(String emailID) {
        this.emailID = emailID;
+       System.out.println("Role: " + role );
    }
    public String getPassword() {
        return password;
