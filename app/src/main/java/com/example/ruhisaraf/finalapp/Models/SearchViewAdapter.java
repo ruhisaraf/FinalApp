@@ -33,6 +33,7 @@ public class SearchViewAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
+
         return users.size();
     }
 
