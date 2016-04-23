@@ -10,6 +10,7 @@ public class EmailDecorator extends SearchDecorator {
         this.search = search;
         this.email = email.toString();
     }
+
     @Override
     public User generateUser() {
         // TODO Auto-generated method stub

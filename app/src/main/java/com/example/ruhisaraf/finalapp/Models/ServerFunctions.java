@@ -17,22 +17,40 @@ class ServerResponseCallback {
     User user;
     Context mContext;
     UserLocalStore userLocalStore;
+
     ServerResponseCallback(Context mContext) {
         this.mContext = mContext;
     }
+
     ServerResponseCallback(Context mContext, UserLocalStore userLocalStore) {
         this.mContext = mContext;
         this.userLocalStore = userLocalStore;
     }
+
     ServerResponseCallback(Context mContext, User user) {
         this.mContext = mContext;
         this.user = user;
     }
 
-    void onResponse(Integer number){};
-    void onResponse(Boolean result){};
-    void onResponse(User user){};
-    void onResponse(List<User> users){};
+    void onResponse(Integer number) {
+    }
+
+    ;
+
+    void onResponse(Boolean result) {
+    }
+
+    ;
+
+    void onResponse(User user) {
+    }
+
+    ;
+
+    void onResponse(List<User> users) {
+    }
+
+    ;
 }
 
 class ServerRequests {
@@ -62,6 +80,7 @@ class ServerRequests {
             }
         });
     }
+
     public void createUser(User user, final ServerResponseCallback callback) throws InterruptedException {
         Call<ResponseBody> call = mLabsClient.insertDocument(databaseName, collectionsName, apiKey, user);
 
@@ -72,6 +91,7 @@ class ServerRequests {
                 Boolean result = (statusCode == 200) ? true : false;
                 callback.onResponse(result);
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 callback.onResponse(false);
@@ -79,6 +99,7 @@ class ServerRequests {
         });
 
     }
+
     public void getUser(final User user, final ServerResponseCallback callback) {
         Gson gson = new Gson();
         String userDetails = gson.toJson(user);
@@ -91,10 +112,9 @@ class ServerRequests {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 List<User> returnedUser = response.body();
-                if(returnedUser.size() == 1) {
+                if (returnedUser.size() == 1) {
                     callback.onResponse(returnedUser.get(0));
-                }
-                else callback.onResponse((User)null);
+                } else callback.onResponse((User) null);
             }
 
             @Override
@@ -103,10 +123,11 @@ class ServerRequests {
             }
         });
     }
+
     public void getMultipleUsers(final User user, final ServerResponseCallback callback) {
         Gson gson = new Gson();
         String userDetails = gson.toJson(user);
-        System.out.println("empty field "+ userDetails);
+        System.out.println("empty field " + userDetails);
         query = new HashMap<>();
         query.put("q", userDetails);
         //query.put("f", "{\"_id\": 1, \"name\" : 1}");
@@ -126,6 +147,7 @@ class ServerRequests {
             }
         });
     }
+
     public void viewUser(final User user, final ServerResponseCallback callback) {
         String userID = user.id.get$oid();
 
@@ -140,10 +162,11 @@ class ServerRequests {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                callback.onResponse((User)null);
+                callback.onResponse((User) null);
             }
         });
     }
+
     public void updateUser(User user, final ServerResponseCallback callback) {
         String userID = user.id.get$oid();
         Call<ResponseBody> call = mLabsClient.updateDocument(databaseName, collectionsName, userID, apiKey, user);
@@ -154,12 +177,14 @@ class ServerRequests {
                 Boolean result = (statusCode == 200) ? true : false;
                 callback.onResponse(result);
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 callback.onResponse(false);
             }
         });
     }
+
     public void deleteUser(final User user, final ServerResponseCallback callback) {
         String userID = user.id.get$oid();
 

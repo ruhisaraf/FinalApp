@@ -23,10 +23,15 @@ import butterknife.InjectView;
 
 public class Search extends AppCompatActivity {
 
-    @InjectView(R.id.input_name) EditText _name;
-    @InjectView(R.id.input_email) EditText _email;
-    @InjectView(R.id.input_role) EditText _role;
-    @InjectView(R.id.btn_search) Button _searchButton;
+    @InjectView(R.id.input_name)
+    EditText _name;
+    @InjectView(R.id.input_email)
+    EditText _email;
+    @InjectView(R.id.input_role)
+    EditText _role;
+    @InjectView(R.id.btn_search)
+    Button _searchButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +58,7 @@ public class Search extends AppCompatActivity {
         HashMap<String, Object> queryCriteria = new HashMap<String, Object>();
         queryCriteria.put(SearchType.NAME, _name.getText().toString());
         queryCriteria.put(SearchType.TYPE, _role.getText().toString());
-        queryCriteria.put(SearchType.EMAIL,_email.getText().toString());
+        queryCriteria.put(SearchType.EMAIL, _email.getText().toString());
 
         Iterator<String> itr = queryCriteria.keySet().iterator();
         User user = new User();

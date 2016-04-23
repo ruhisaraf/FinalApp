@@ -17,16 +17,25 @@ import butterknife.InjectView;
 
 public class ViewProfile extends AppCompatActivity {
 
-    @InjectView(R.id.input_name) EditText _name;
-    @InjectView(R.id.input_email) EditText _email;
-    @InjectView(R.id.input_role) EditText _role;
-    @InjectView(R.id.btn_editProfile) Button _editButton;
-    @InjectView(R.id.btn_updateProfile) Button _updateButton;
-    @InjectView(R.id.btn_delProfile) Button _deleteButton;
-    @InjectView(R.id.btn_search) Button _searchButton;
-    @InjectView(R.id.btn_logout) Button _logoutButton;
+    @InjectView(R.id.input_name)
+    EditText _name;
+    @InjectView(R.id.input_email)
+    EditText _email;
+    @InjectView(R.id.input_role)
+    EditText _role;
+    @InjectView(R.id.btn_editProfile)
+    Button _editButton;
+    @InjectView(R.id.btn_updateProfile)
+    Button _updateButton;
+    @InjectView(R.id.btn_delProfile)
+    Button _deleteButton;
+    @InjectView(R.id.btn_search)
+    Button _searchButton;
+    @InjectView(R.id.btn_logout)
+    Button _logoutButton;
 
     UserLocalStore userLocalStore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +71,7 @@ public class ViewProfile extends AppCompatActivity {
         _updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               passableuser.setName(_name.getText().toString());
+                passableuser.setName(_name.getText().toString());
                 try {
                     passableuser.updateUserProfile(mContext);
                 } catch (InterruptedException e) {

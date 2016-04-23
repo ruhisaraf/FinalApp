@@ -23,6 +23,7 @@ public class ForgotPassword extends AppCompatActivity {
     EditText _emailText;
     @InjectView(R.id.btn_forgot_pwd)
     Button _forgotPwdButton;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.

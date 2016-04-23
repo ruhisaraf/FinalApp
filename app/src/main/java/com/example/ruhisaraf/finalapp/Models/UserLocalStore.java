@@ -41,7 +41,7 @@ public class UserLocalStore {
         String email = userLocalDatabase.getString("email", "");
         String password = userLocalDatabase.getString("password", "");
 
-        User user = new User(email, password);
+        User user = new User(email, password, role);
         return user;
     }
 }

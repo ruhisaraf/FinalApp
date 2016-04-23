@@ -17,9 +17,9 @@ public class SearchViewAdapter extends BaseAdapter {
     Activity activity;
     TextView txtFirst;
 
-    public SearchViewAdapter(Activity activity, ArrayList<User> users){
+    public SearchViewAdapter(Activity activity, ArrayList<User> users) {
         super();
-        this.activity=activity;
+        this.activity = activity;
         this.users = users;
         System.out.println("In search Adapter" + this.users.get(0).getName());
     }
@@ -44,15 +44,14 @@ public class SearchViewAdapter extends BaseAdapter {
     }
 
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater=activity.getLayoutInflater();
+        LayoutInflater inflater = activity.getLayoutInflater();
 
-        if(convertView == null){
+        if (convertView == null) {
 
-            convertView=inflater.inflate(R.layout.search_items, null);
-            txtFirst=(TextView)convertView.findViewById(R.id.user_name);
+            convertView = inflater.inflate(R.layout.search_items, null);
+            txtFirst = (TextView) convertView.findViewById(R.id.user_name);
 
         }
         String text = this.users.get(position).getName();

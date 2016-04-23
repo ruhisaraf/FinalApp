@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ruhisaraf.finalapp.Models.User;
-import com.example.ruhisaraf.finalapp.Models.UserCallback;
 import com.example.ruhisaraf.finalapp.Models.UserLocalStore;
 import com.example.ruhisaraf.finalapp.R;
 
@@ -26,11 +25,16 @@ import butterknife.InjectView;
 
 public class SignUp extends AppCompatActivity {
     /*Load all the text / button responses from the view into the activity*/
-    @InjectView(R.id.input_email) EditText _emailText;
-    @InjectView(R.id.input_password) EditText _passwordText;
-    @InjectView(R.id.role_Spinner) Spinner _roleSpinner;
-    @InjectView(R.id.btn_signup) Button _signupButton;
-    @InjectView(R.id.link_login) TextView _loginLink;
+    @InjectView(R.id.input_email)
+    EditText _emailText;
+    @InjectView(R.id.input_password)
+    EditText _passwordText;
+    @InjectView(R.id.role_Spinner)
+    Spinner _roleSpinner;
+    @InjectView(R.id.btn_signup)
+    Button _signupButton;
+    @InjectView(R.id.link_login)
+    TextView _loginLink;
 
     UserLocalStore userLocalStore;
 
@@ -74,7 +78,7 @@ public class SignUp extends AppCompatActivity {
         Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
 
-        if (email.isEmpty() || password.isEmpty() || (!matcher.matches()) ) {
+        if (email.isEmpty() || password.isEmpty() || (!matcher.matches())) {
             valid = false;
         }
 
@@ -107,15 +111,7 @@ public class SignUp extends AppCompatActivity {
         userLocalStore.setUserLoggedIn(true);
 
         try {
-            newUser.registerUser(signUpContext, new UserCallback() {
-                public void onResponse(Boolean result) throws InterruptedException {
-                    if(result) {
-                        //newUser.viewUserProfile(signUpContext, newUser);
-                    }
-                }
-
-            });
-
+            newUser.registerUser(signUpContext);
             return true;
         } catch (InterruptedException e) {
             e.printStackTrace();

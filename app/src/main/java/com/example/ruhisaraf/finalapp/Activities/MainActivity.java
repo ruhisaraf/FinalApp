@@ -17,15 +17,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         userLocalStore = new UserLocalStore(this);
-        if(userLocalStore.getLoggedInUser() != null) {
+        if (userLocalStore.getLoggedInUser() != null) {
             try {
                 userLocalStore.getLoggedInUser().loginUser(this.getApplicationContext());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-        }
-        else {
+        } else {
             Intent i = new Intent(this, Login.class);
             startActivity(i);
         }

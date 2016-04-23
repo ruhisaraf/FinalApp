@@ -10,6 +10,7 @@ public class NameDecorator extends SearchDecorator {
         this.search = search;
         this.name = name.toString();
     }
+
     @Override
     public User generateUser() {
         // TODO Auto-generated method stub

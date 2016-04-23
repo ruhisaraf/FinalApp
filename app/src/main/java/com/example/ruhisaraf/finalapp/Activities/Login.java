@@ -24,13 +24,19 @@ import butterknife.InjectView;
 
 public class Login extends AppCompatActivity {
 
-    @InjectView(R.id.input_email) EditText _emailText;
-    @InjectView(R.id.input_password) EditText _passwordText;
-    @InjectView(R.id.btn_login) Button _loginButton;
-    @InjectView(R.id.link_signup) TextView _signupLink;
-    @InjectView(R.id.link_forgot_password) TextView _forgotpasswordLink;
+    @InjectView(R.id.input_email)
+    EditText _emailText;
+    @InjectView(R.id.input_password)
+    EditText _passwordText;
+    @InjectView(R.id.btn_login)
+    Button _loginButton;
+    @InjectView(R.id.link_signup)
+    TextView _signupLink;
+    @InjectView(R.id.link_forgot_password)
+    TextView _forgotpasswordLink;
 
     UserLocalStore userLocalStore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +45,7 @@ public class Login extends AppCompatActivity {
         ButterKnife.inject(this);
         userLocalStore = new UserLocalStore(this);
 
-        if(userLocalStore.getLoggedInUser() != null) {
+        if (userLocalStore.getLoggedInUser() != null) {
             System.out.println("In Set Preferences");
             Context mcontext = this.getApplicationContext();
             User user = userLocalStore.getLoggedInUser();
@@ -92,7 +98,7 @@ public class Login extends AppCompatActivity {
         Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
 
-        if (email.isEmpty() || password.isEmpty() || (!matcher.matches()) ) {
+        if (email.isEmpty() || password.isEmpty() || (!matcher.matches())) {
             valid = false;
         }
 

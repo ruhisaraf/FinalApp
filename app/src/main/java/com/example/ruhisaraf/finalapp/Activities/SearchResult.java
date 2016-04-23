@@ -17,7 +17,9 @@ import butterknife.InjectView;
 
 public class SearchResult extends AppCompatActivity {
 
-    @InjectView(R.id.searchResults) ListView _searchResults;
+    @InjectView(R.id.searchResults)
+    ListView _searchResults;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class SearchResult extends AppCompatActivity {
         if (extras != null) {
             String result = extras.getString("NumberOfUsers");
             Gson gson = new Gson();
-            ArrayList<User> userList= (ArrayList<User>)gson.fromJson(result,
+            ArrayList<User> userList = (ArrayList<User>) gson.fromJson(result,
                     new TypeToken<ArrayList<User>>() {
                     }.getType());
             SearchViewAdapter adapter = new SearchViewAdapter(this, userList);

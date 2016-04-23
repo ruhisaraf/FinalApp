@@ -10,6 +10,7 @@ public class RoleDecorator extends SearchDecorator {
         this.search = search;
         this.role = role.toString();
     }
+
     @Override
     public User generateUser() {
         // TODO Auto-generated method stub
