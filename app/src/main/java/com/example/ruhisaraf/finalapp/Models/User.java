@@ -177,7 +177,7 @@ public class User {
 
     public String hashUserPassword(String password) {
         MessageDigest mdSha1 = null;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         try {
             mdSha1 = MessageDigest.getInstance("SHA-1");
             mdSha1.update(password.getBytes("ASCII"));

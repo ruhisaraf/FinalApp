@@ -42,7 +42,6 @@ public class ForgotPassword extends AppCompatActivity {
                 if (!validate()) {
                     Toast.makeText(getBaseContext(), "Enter Valid EmailID", Toast.LENGTH_LONG).show();
                     _forgotPwdButton.setEnabled(true);
-                    return;
                 } else {
                     userLocalStore.clearUserData();
                     Toast.makeText(getBaseContext(), "If Your EmailId exists in the system, you will receive a new password", Toast.LENGTH_LONG).show();

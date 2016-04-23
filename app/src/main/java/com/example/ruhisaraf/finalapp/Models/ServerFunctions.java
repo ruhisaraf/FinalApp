@@ -103,6 +103,10 @@ class ServerRequests {
     public void getUser(final User user, final ServerResponseCallback callback) {
         Gson gson = new Gson();
         String userDetails = gson.toJson(user);
+        getUser(userDetails, callback);
+    }
+
+    public void getUser(String userDetails, final ServerResponseCallback callback) {
         query = new HashMap<>();
         query.put("q", userDetails);
         //query.put("f", "{\"_id\" : 1}");
