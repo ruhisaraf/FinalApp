@@ -1,5 +1,6 @@
 package com.example.ruhisaraf.finalapp.Models;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
+/**
+ * Created by ruhisaraf on 4/2/2016.
+ */
 interface MLabsDriver {
     @GET("databases/")
     Call<List<String>> getDatabases(
@@ -35,6 +39,12 @@ interface MLabsDriver {
             @Query("apiKey") String apiKey,
             @QueryMap Map<String, Object> options);
 
+    @GET("databases/{dbName}/collections/{collectionsName}")
+    Call<List<HashMap<String,Object>>> getRole(
+            @Path("dbName") String databases,
+            @Path("collectionsName") String collections,
+            @Query("apiKey") String apiKey,
+            @QueryMap Map<String, Object> options);
 
     @GET("databases/{dbName}/collections/{collectionsName}")
     Call<Integer> getNumberOfDocuments(
@@ -69,7 +79,7 @@ interface MLabsDriver {
             @Body Object document);
 
     @Headers({
-            "async: true",
+            "asyn: true",
             "timeout: 300000"
     })
     @DELETE("databases/{dbName}/collections/{collectionsName}/{id}")

@@ -37,6 +37,11 @@ class ServerResponseCallback {
 
     ;
 
+    void onResponse(HashMap<String, Object> map) {
+    }
+
+    ;
+
     void onResponse(Boolean result) {
     }
 
@@ -100,13 +105,33 @@ class ServerRequests {
 
     }
 
+    public void getUserRole(String userDetails, final ServerResponseCallback callback) {
+        query = new HashMap<>();
+        query.put("q", userDetails);
+        query.put("f", "{\"_id\" : 0, \"role\" : 1,  \"emailID\" : 1,  \"password\" : 1}");
+        System.out.println("In getUserRole - ServerRequests" + query.toString());
+
+        Call<List<HashMap<String,Object>>> call = mLabsClient.getRole(databaseName, collectionsName, apiKey, query);
+        call.enqueue(new Callback<List<HashMap<String,Object>>>() {
+            @Override
+            public void onResponse(Call<List<HashMap<String,Object>>> call, Response<List<HashMap<String,Object>>> response) {
+                List<HashMap<String,Object>> returnedUser = response.body();
+                System.out.println("RUHI FINALY GAVE UP... " + returnedUser);
+                callback.onResponse(returnedUser.get(0));
+            }
+
+            @Override
+            public void onFailure(Call<List<HashMap<String,Object>>> call, Throwable t) {
+                //callback.onResponse((String) null);
+                System.out.println("Failing REST Query");
+            }
+        });
+
+    }
+
     public void getUser(final User user, final ServerResponseCallback callback) {
         Gson gson = new Gson();
         String userDetails = gson.toJson(user);
-        getUser(userDetails, callback);
-    }
-
-    public void getUser(String userDetails, final ServerResponseCallback callback) {
         query = new HashMap<>();
         query.put("q", userDetails);
         //query.put("f", "{\"_id\" : 1}");

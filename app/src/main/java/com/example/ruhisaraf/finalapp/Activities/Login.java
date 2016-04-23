@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ruhisaraf.finalapp.Models.User;
+import com.example.ruhisaraf.finalapp.Models.UserFactory;
 import com.example.ruhisaraf.finalapp.Models.UserLocalStore;
 import com.example.ruhisaraf.finalapp.R;
 
@@ -123,18 +124,20 @@ public class Login extends AppCompatActivity {
 
     protected Boolean login() {
         Context loginContext = this.getApplicationContext();
-        User newUser = new User();
-        newUser.setEmailID(_emailText.getText().toString());
-        newUser.setPassword(hashUserPassword(_passwordText.getText().toString()));
-        userLocalStore.storeUserData(newUser);
-        userLocalStore.setUserLoggedIn(true);
-        try {
-            newUser.loginUser(loginContext);
-            return true;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return false;
-        }
+        UserFactory.createUser(_emailText.getText().toString(), loginContext);
+//        User newUser = new User();
+//        newUser.setEmailID(_emailText.getText().toString());
+//        newUser.setPassword(hashUserPassword(_passwordText.getText().toString()));
+//        userLocalStore.storeUserData(newUser);
+//        userLocalStore.setUserLoggedIn(true);
+//        try {
+//            newUser.loginUser(loginContext);
+//            return true;
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+        return true;
     }
 
 
