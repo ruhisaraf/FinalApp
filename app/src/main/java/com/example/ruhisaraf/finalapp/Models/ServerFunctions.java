@@ -87,14 +87,16 @@ class ServerRequests {
         String userDetails = gson.toJson(user);
         query = new HashMap<>();
         query.put("q", userDetails);
-        query.put("f", "{\"_id\" : 1}");
+        //query.put("f", "{\"_id\" : 1}");
 
         Call<List<User>> call = mLabsClient.getDocument(databaseName, collectionsName, apiKey, query);
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 List<User> returnedUser = response.body();
-                if(returnedUser.size() == 1) callback.onResponse(returnedUser.get(0));
+                if(returnedUser.size() == 1) {
+                    callback.onResponse(returnedUser.get(0));
+                }
                 else callback.onResponse((User)null);
             }
 

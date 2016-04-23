@@ -76,9 +76,6 @@ public class Search extends AppCompatActivity {
                 }
             }
         }
-//        Gson gson = new Gson();
-//        String json = gson.toJson(user);
-
         user.searchOtherUsers(mContext);
 
         return true;

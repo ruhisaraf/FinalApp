@@ -97,8 +97,8 @@ public class SignUp extends AppCompatActivity {
     }
 
     protected Boolean signUp() {
-        Context signUpContext = this.getApplicationContext();
-        User newUser = new User();
+        final Context signUpContext = this.getApplicationContext();
+        final User newUser = new User();
         newUser.setRole(String.valueOf(_roleSpinner.getSelectedItem()));
         newUser.setEmailID(_emailText.getText().toString());
         newUser.setPassword(hashUserPassword(_passwordText.getText().toString()));
@@ -107,11 +107,9 @@ public class SignUp extends AppCompatActivity {
 
         try {
             newUser.registerUser(signUpContext, new UserCallback() {
-                public void onResponse(Boolean result) {
+                public void onResponse(Boolean result) throws InterruptedException {
                     if(result) {
-                        Intent i = new Intent(getmContext(), Login.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        getmContext().startActivity(i);
+                        //newUser.viewUserProfile(signUpContext, newUser);
                     }
                 }
 

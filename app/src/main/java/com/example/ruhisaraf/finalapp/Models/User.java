@@ -2,6 +2,7 @@ package com.example.ruhisaraf.finalapp.Models;
 import android.content.Context;
 import android.content.Intent;
 import android.text.BoringLayout;
+import android.util.Base64;
 
 import com.example.ruhisaraf.finalapp.Activities.Login;
 import com.example.ruhisaraf.finalapp.Activities.SearchResult;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.List;
 
 /**
@@ -46,18 +48,14 @@ public class User {
     }
     public void registerUser(Context mContext, final UserCallback userCallback) throws InterruptedException {
         ServerRequests serverRequests = new ServerRequests();
-        serverRequests.createUser(this, new ServerResponseCallback(mContext) {
+        serverRequests.createUser(this, new ServerResponseCallback(mContext, this) {
             @Override
             void onResponse(Boolean result) {
-                userCallback.setmContext(mContext);
-                userCallback.onResponse(result);
-                /*if(result) {
-                    Intent i = new Intent(mContext, Login.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(i);
+                try {
+                    this.user.loginUser(mContext);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                else {
-                }*/
             }
         });
     }
@@ -151,6 +149,46 @@ public class User {
                 }
             }
         });
+    }
+
+    public void forgotPwd(Context mContext) throws InterruptedException {
+        ServerRequests serverRequests = new ServerRequests();
+        serverRequests.getUser(this, new ServerResponseCallback(mContext, this) {
+            @Override
+            void onResponse(User user) {
+                if(user != null) try {
+                    this.user = user;
+                    System.out.println("In user" + user.getEmailID());
+                    user.setPassword(hashUserPassword("Hello1234"));
+                    ServerRequests serverRequests = new ServerRequests();
+                    serverRequests.updateUser(user, new ServerResponseCallback(mContext) {
+                        @Override
+                        void onResponse(Boolean result) {
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                else {
+                }
+            }
+        });
+    }
+
+    public String hashUserPassword(String password) {
+        MessageDigest mdSha1 = null;
+        StringBuffer sb = new StringBuffer();
+        try {
+            mdSha1 = MessageDigest.getInstance("SHA-1");
+            mdSha1.update(password.getBytes("ASCII"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        byte[] data = mdSha1.digest();
+        String hex = Base64.encodeToString(data, 0, data.length, 0);
+        sb.append(hex);
+        String hashedPassword = sb.toString();
+        return hashedPassword.substring(0, hashedPassword.length() - 2);
     }
 
    /*Getters & Setters*/
