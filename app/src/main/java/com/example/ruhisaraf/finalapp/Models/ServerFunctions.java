@@ -15,6 +15,7 @@ import retrofit2.Response;
 
 class ServerResponseCallback {
     User user;
+    String password;
     Context mContext;
     UserLocalStore userLocalStore;
 
@@ -30,6 +31,11 @@ class ServerResponseCallback {
     ServerResponseCallback(Context mContext, User user) {
         this.mContext = mContext;
         this.user = user;
+    }
+
+    ServerResponseCallback(Context mContext, String password) {
+        this.mContext = mContext;
+        this.password = password;
     }
 
     void onResponse(Integer number) {
@@ -86,9 +92,8 @@ class ServerRequests {
         });
     }
 
-    public void createUser(User user, final ServerResponseCallback callback) throws InterruptedException {
+    public void createUser(User user, final ServerResponseCallback callback){
         Call<ResponseBody> call = mLabsClient.insertDocument(databaseName, collectionsName, apiKey, user);
-
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -116,14 +121,12 @@ class ServerRequests {
             @Override
             public void onResponse(Call<List<HashMap<String,Object>>> call, Response<List<HashMap<String,Object>>> response) {
                 List<HashMap<String,Object>> returnedUser = response.body();
-                System.out.println("RUHI FINALY GAVE UP... " + returnedUser);
                 callback.onResponse(returnedUser.get(0));
             }
 
             @Override
             public void onFailure(Call<List<HashMap<String,Object>>> call, Throwable t) {
-                //callback.onResponse((String) null);
-                System.out.println("Failing REST Query");
+                callback.onResponse((HashMap<String, Object>) null);
             }
         });
 
@@ -134,6 +137,7 @@ class ServerRequests {
         String userDetails = gson.toJson(user);
         query = new HashMap<>();
         query.put("q", userDetails);
+        System.out.println("In getUserRole - ServerRequests" + query.toString());
         //query.put("f", "{\"_id\" : 1}");
 
         Call<List<User>> call = mLabsClient.getDocument(databaseName, collectionsName, apiKey, query);
@@ -159,7 +163,7 @@ class ServerRequests {
         System.out.println("empty field " + userDetails);
         query = new HashMap<>();
         query.put("q", userDetails);
-        //query.put("f", "{\"_id\": 1, \"name\" : 1}");
+        query.put("f", "{\"_id\": 1, \"name\" : 1, \"role\" : 1}");
 
         Call<List<User>> call = mLabsClient.getDocument(databaseName, collectionsName, apiKey, query);
         call.enqueue(new Callback<List<User>>() {

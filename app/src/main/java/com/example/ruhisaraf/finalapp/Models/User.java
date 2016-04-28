@@ -6,7 +6,9 @@ import android.util.Base64;
 
 import com.example.ruhisaraf.finalapp.Activities.SearchResult;
 import com.example.ruhisaraf.finalapp.Activities.SignUp;
+import com.example.ruhisaraf.finalapp.Activities.UserProfile;
 import com.example.ruhisaraf.finalapp.Activities.ViewProfile;
+import com.example.ruhisaraf.finalapp.Utils;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -22,6 +24,15 @@ public class User {
     String emailID;
     String password;
     String phoneNumber;
+    List<Conversation> conversations;
+
+    public List<Conversation> getConversations() {
+        return conversations;
+    }
+
+    public void setConversations(List<Conversation> conversations) {
+        this.conversations = conversations;
+    }
 
     public User(String oid) {
         this.id = new Id();
@@ -29,19 +40,6 @@ public class User {
     }
 
     public User(String emailID, String password) {
-        this.emailID = emailID;
-        this.password = password;
-    }
-
-    public User(String emailID, String password, String role) {
-        this.emailID = emailID;
-        this.password = password;
-        this.role = role;
-    }
-
-    public User(String name, String role, String emailID, String password) {
-        this.name = name;
-        this.role = role;
         this.emailID = emailID;
         this.password = password;
     }
@@ -87,7 +85,7 @@ public class User {
             @Override
             void onResponse(User user) {
                 if (user != null) {
-                    Intent i = new Intent(mContext, ViewProfile.class);
+                    Intent i = new Intent(mContext, UserProfile.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.putExtra("User_Name", user.getName());
                     i.putExtra("User_Email", user.getEmailID());
@@ -160,7 +158,7 @@ public class User {
                 if (user != null) try {
                     this.user = user;
                     System.out.println("In user" + user.getEmailID());
-                    user.setPassword(hashUserPassword("Hello1234"));
+                    user.setPassword(Utils.hashUserPassword("Hello1234"));
                     ServerRequests serverRequests = new ServerRequests();
                     serverRequests.updateUser(user, new ServerResponseCallback(mContext) {
                         @Override
@@ -176,20 +174,19 @@ public class User {
         });
     }
 
-    public String hashUserPassword(String password) {
-        MessageDigest mdSha1 = null;
-        StringBuilder sb = new StringBuilder();
-        try {
-            mdSha1 = MessageDigest.getInstance("SHA-1");
-            mdSha1.update(password.getBytes("ASCII"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        byte[] data = mdSha1.digest();
-        String hex = Base64.encodeToString(data, 0, data.length, 0);
-        sb.append(hex);
-        String hashedPassword = sb.toString();
-        return hashedPassword.substring(0, hashedPassword.length() - 2);
+    public void sendMessage(Context mContext, User otherUser) {
+        ServerRequests serverRequests = new ServerRequests();
+        serverRequests.updateUser(otherUser, new ServerResponseCallback(mContext, this) {
+            @Override
+            void onResponse(Boolean result) {
+                try {
+                    this.user.loginUser(mContext);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     /*Getters & Setters*/
@@ -207,6 +204,7 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+        Thread.currentThread().dumpStack();
         System.out.println("Role: " + role);
     }
 

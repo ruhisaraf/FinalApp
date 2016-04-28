@@ -40,8 +40,17 @@ public class UserLocalStore {
         String role = userLocalDatabase.getString("role", "");
         String email = userLocalDatabase.getString("email", "");
         String password = userLocalDatabase.getString("password", "");
-
-        User user = new User(email, password, role);
+        User user;
+        if ("Student".equals(role.trim())) {
+            user = new StudentUser(email, password);
+            user.setRole(role);
+        } else if ("Admin".equals(role.trim())) {
+            user = new AdminUser(email, password);
+            user.setRole(role);
+        } else if ("Tutor".equals(role.trim())) {
+            user = new TutorUser(email, password);
+            user.setRole(role);
+        } else user = null;
         return user;
     }
 }

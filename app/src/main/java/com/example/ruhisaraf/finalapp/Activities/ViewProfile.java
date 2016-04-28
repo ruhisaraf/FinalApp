@@ -23,7 +23,7 @@ public class ViewProfile extends AppCompatActivity {
     EditText _email;
     @InjectView(R.id.input_role)
     EditText _role;
-    @InjectView(R.id.btn_editProfile)
+    /*@InjectView(R.id.btn_editProfile)
     Button _editButton;
     @InjectView(R.id.btn_updateProfile)
     Button _updateButton;
@@ -32,7 +32,7 @@ public class ViewProfile extends AppCompatActivity {
     @InjectView(R.id.btn_search)
     Button _searchButton;
     @InjectView(R.id.btn_logout)
-    Button _logoutButton;
+    Button _logoutButton;*/
 
     UserLocalStore userLocalStore;
 
@@ -61,7 +61,7 @@ public class ViewProfile extends AppCompatActivity {
         _role.setText(user.getRole());
         passableuser = user;
 
-        _editButton.setOnClickListener(new View.OnClickListener() {
+        /*_editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _name.setEnabled(Boolean.TRUE);
@@ -110,7 +110,7 @@ public class ViewProfile extends AppCompatActivity {
                 mContext.startActivity(i);
 
             }
-        });
+        });*/
     }
 
 }

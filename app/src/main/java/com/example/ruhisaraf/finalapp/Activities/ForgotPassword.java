@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.ruhisaraf.finalapp.Models.User;
 import com.example.ruhisaraf.finalapp.Models.UserLocalStore;
 import com.example.ruhisaraf.finalapp.R;
+import com.example.ruhisaraf.finalapp.Utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,37 +40,24 @@ public class ForgotPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 _forgotPwdButton.setEnabled(false);
-                if (!validate()) {
-                    Toast.makeText(getBaseContext(), "Enter Valid EmailID", Toast.LENGTH_LONG).show();
-                    _forgotPwdButton.setEnabled(true);
-                } else {
+                String email = _emailText.getText().toString();
+                if (Utils.validate(email, ForgotPassword.this)) {
                     userLocalStore.clearUserData();
                     Toast.makeText(getBaseContext(), "If Your EmailId exists in the system, you will receive a new password", Toast.LENGTH_LONG).show();
                     User user = new User();
                     user.setEmailID(_emailText.getText().toString());
                     try {
-                        user.forgotPwd(getBaseContext());
+                        user.forgotPwd(ForgotPassword.this);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+                } else {
+                    Toast.makeText(getBaseContext(), "Enter Valid EmailID", Toast.LENGTH_LONG).show();
+                    _forgotPwdButton.setEnabled(true);
                 }
             }
         });
-    }
-
-    public boolean validate() {
-        boolean valid = true;
-
-        String email = _emailText.getText().toString();
-        String emailPattern = getString(R.string.email_format);
-        Pattern pattern = Pattern.compile(emailPattern);
-        Matcher matcher = pattern.matcher(email);
-
-        if (email.isEmpty() || (!matcher.matches())) {
-            valid = false;
-        }
-
-        return valid;
     }
 
 

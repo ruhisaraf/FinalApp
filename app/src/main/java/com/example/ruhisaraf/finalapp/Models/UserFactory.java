@@ -7,16 +7,15 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class UserFactory {
-    public static void createUser(String emailID, Context mContext) {
+    public static void createUser(String emailID, String password, Context mContext) {
 
         HashMap<String, String> map = new HashMap<String,String>();
         map.put("emailID", emailID);
         Gson gson = new Gson();
         String userDetails = gson.toJson(map);
-        final String role;
         //System.out.println("In UserFactor" + userDetails);
         ServerRequests serverRequests = new ServerRequests();
-        final ServerResponseCallback serverResponseCallback = new ServerResponseCallback(mContext){
+        final ServerResponseCallback serverResponseCallback = new ServerResponseCallback(mContext, password){
             @Override
             void onResponse(HashMap<String, Object> map) {
                 System.out.println("ROLE COMING IN::" + map.get("role"));
@@ -24,13 +23,13 @@ public class UserFactory {
                 String email = map.get("emailID").toString();
                 String password = map.get("password").toString();
             if ("Student".equals(role.trim())) {
-                user = new StudentUser(email, password);
+                user = new StudentUser(email, this.password);
                 user.setRole(role);
             } else if ("Admin".equals(role.trim())) {
-                user = new AdminUser(email, password);
+                user = new AdminUser(email, this.password);
                 user.setRole(role);
             } else if ("Tutor".equals(role.trim())) {
-                user = new TutorUser(email, password);
+                user = new TutorUser(email, this.password);
                 user.setRole(role);
             } else user = null;
                 try {

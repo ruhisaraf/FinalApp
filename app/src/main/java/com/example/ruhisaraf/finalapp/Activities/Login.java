@@ -15,6 +15,7 @@ import com.example.ruhisaraf.finalapp.Models.User;
 import com.example.ruhisaraf.finalapp.Models.UserFactory;
 import com.example.ruhisaraf.finalapp.Models.UserLocalStore;
 import com.example.ruhisaraf.finalapp.R;
+import com.example.ruhisaraf.finalapp.Utils;
 
 import java.security.MessageDigest;
 import java.util.regex.Matcher;
@@ -37,6 +38,8 @@ public class Login extends AppCompatActivity {
     TextView _forgotpasswordLink;
 
     UserLocalStore userLocalStore;
+    String email;
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +49,13 @@ public class Login extends AppCompatActivity {
         ButterKnife.inject(this);
         userLocalStore = new UserLocalStore(this);
 
-        if (userLocalStore.getLoggedInUser() != null) {
-            System.out.println("In Set Preferences");
-            Context mcontext = this.getApplicationContext();
-            User user = userLocalStore.getLoggedInUser();
-            try {
-                user.loginUser(mcontext);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _loginButton.setEnabled(false);
-
-                if (!validate() || !login()) {
+                email = _emailText.getText().toString();
+                password = _passwordText.getText().toString();
+                if (!Utils.validate(email, Login.this) || password.isEmpty() || !login()) {
                     Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
                     _loginButton.setEnabled(true);
                     return;
@@ -90,53 +83,9 @@ public class Login extends AppCompatActivity {
 
     }
 
-    public boolean validate() {
-        boolean valid = true;
-
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String emailPattern = getString(R.string.email_format);
-        Pattern pattern = Pattern.compile(emailPattern);
-        Matcher matcher = pattern.matcher(email);
-
-        if (email.isEmpty() || password.isEmpty() || (!matcher.matches())) {
-            valid = false;
-        }
-
-        return valid;
-    }
-
-    public String hashUserPassword(String password) {
-        MessageDigest mdSha1 = null;
-        StringBuffer sb = new StringBuffer();
-        try {
-            mdSha1 = MessageDigest.getInstance("SHA-1");
-            mdSha1.update(password.getBytes("ASCII"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        byte[] data = mdSha1.digest();
-        String hex = Base64.encodeToString(data, 0, data.length, 0);
-        sb.append(hex);
-        String hashedPassword = sb.toString();
-        return hashedPassword.substring(0, hashedPassword.length() - 2);
-    }
 
     protected Boolean login() {
-        Context loginContext = this.getApplicationContext();
-        UserFactory.createUser(_emailText.getText().toString(), loginContext);
-//        User newUser = new User();
-//        newUser.setEmailID(_emailText.getText().toString());
-//        newUser.setPassword(hashUserPassword(_passwordText.getText().toString()));
-//        userLocalStore.storeUserData(newUser);
-//        userLocalStore.setUserLoggedIn(true);
-//        try {
-//            newUser.loginUser(loginContext);
-//            return true;
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
+        UserFactory.createUser(email,Utils.hashUserPassword(password), Login.this);
         return true;
     }
 

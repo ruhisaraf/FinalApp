@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.ruhisaraf.finalapp.Models.User;
 import com.example.ruhisaraf.finalapp.Models.UserLocalStore;
 import com.example.ruhisaraf.finalapp.R;
+import com.example.ruhisaraf.finalapp.Utils;
 
 import java.security.MessageDigest;
 import java.util.regex.Matcher;
@@ -49,8 +50,9 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 _signupButton.setEnabled(false);
-
-                if (!validate() || !signUp()) {
+                String email = _emailText.getText().toString();
+                String password = _passwordText.getText().toString();
+                if (!Utils.validate(email, SignUp.this) || password.isEmpty() || !signUp()) {
                     Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
                     _signupButton.setEnabled(true);
                     return;
@@ -69,44 +71,12 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    public boolean validate() {
-        boolean valid = true;
-
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String emailPattern = getString(R.string.email_format);
-        Pattern pattern = Pattern.compile(emailPattern);
-        Matcher matcher = pattern.matcher(email);
-
-        if (email.isEmpty() || password.isEmpty() || (!matcher.matches())) {
-            valid = false;
-        }
-
-        return valid;
-    }
-
-    public String hashUserPassword(String password) {
-        MessageDigest mdSha1 = null;
-        StringBuffer sb = new StringBuffer();
-        try {
-            mdSha1 = MessageDigest.getInstance("SHA-1");
-            mdSha1.update(password.getBytes("ASCII"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        byte[] data = mdSha1.digest();
-        String hex = Base64.encodeToString(data, 0, data.length, 0);
-        sb.append(hex);
-        String hashedPassword = sb.toString();
-        return hashedPassword.substring(0, hashedPassword.length() - 2);
-    }
-
     protected Boolean signUp() {
         final Context signUpContext = this.getApplicationContext();
         final User newUser = new User();
         newUser.setRole(String.valueOf(_roleSpinner.getSelectedItem()));
         newUser.setEmailID(_emailText.getText().toString());
-        newUser.setPassword(hashUserPassword(_passwordText.getText().toString()));
+        newUser.setPassword(Utils.hashUserPassword(_passwordText.getText().toString()));
         userLocalStore.storeUserData(newUser);
         userLocalStore.setUserLoggedIn(true);
 
